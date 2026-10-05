@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Submit New Complaint - EduResolve AI{% endblock %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto;">
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Submit College Complaint</h1>
+            <p class="page-subtitle">Describe your issue below. Our Gemini AI will analyze, summarize, and route it to the correct department.</p>
+        </div>
+        <a href="{{ url_for('student_dashboard') }}" class="btn btn-secondary">← Back to Dashboard</a>
+    </div>
+
+    <div class="auth-card" style="max-width: 100%;">
+        <form action="{{ url_for('new_complaint') }}" method="POST" id="complaint-form">
+            <!-- Hidden inputs populated by AI analysis -->
+            <input type="hidden" id="input-category" name="category" value="">
+            <input type="hidden" id="input-priority" name="priority" value="">
+            <input type="hidden" id="input-department" name="department" value="">
+            <input type="hidden" id="input-summary" name="summary" value="">
+
+            <div class="form-group">
+                <label for="title">Complaint Title *</label>
+                <input type="text" id="title" name="title" class="form-control" 
+                       placeholder="e.g. Projector in Room 204 is not working and we have an exam tomorrow" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Detailed Description *</label>
+                <textarea id="description" name="description" class="form-control" 
+                          placeholder="Provide all relevant details (location, nature of issue, urgency, room number, etc.)" required></textarea>
+            </div>
+
+            <div style="display: flex; gap: 1rem; align-items: center; margin-top: 1.5rem;">
+                <button type="button" id="analyze-btn" class="btn btn-ai">
+                    ✨ Analyze with Gemini AI
+                </button>
+                <span style="font-size: 0.85rem; color: var(--text-muted);">
+                    Click to preview category, priority & department classification.
+                </span>
+            </div>
+
+            <!-- AI Preview Container (Hidden initially) -->
+            <div id="ai-preview-card" class="ai-preview-card" style="display: none;">
+                <div class="ai-card-header">
+                    <div class="ai-badge-title">
+                        <span>✨</span> Gemini AI Classification Result
+                    </div>
+                    <span id="res-priority-badge" class="badge"></span>
+                </div>
+
+                <div class="ai-grid">
+                    <div class="ai-field-box">
+                        <div class="ai-field-label">Category</div>
+                        <div class="ai-field-value" id="res-category">-</div>
+                    </div>
+                    <div class="ai-field-box">
+                        <div class="ai-field-label">Priority Level</div>
+                        <div class="ai-field-value" id="res-priority">-</div>
+                    </div>
+                    <div class="ai-field-box">
+                        <div class="ai-field-label">Department</div>
+                        <div class="ai-field-value" id="res-department">-</div>
+                    </div>
+                </div>
+
+                <div class="ai-summary-box">
+                    <div class="ai-field-label">AI Summary</div>
+                    <div id="res-summary" style="font-size: 0.95rem; font-weight: 500; color: #1e293b;">-</div>
+                </div>
+
+                <div id="res-notice" style="display: none; margin-top: 0.75rem; font-size: 0.8rem; color: #7c3aed; font-style: italic;"></div>
+            </div>
+
+            <div style="margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.5rem; display: flex; justify-content: flex-end;">
+                <button type="submit" id="submit-complaint-btn" class="btn btn-primary" style="padding: 0.85rem 2rem;">
+                    Submit Complaint
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

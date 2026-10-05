@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Login - EduResolve AI{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>Welcome Back</h2>
+            <p>Log in to access your college portal dashboard</p>
+        </div>
+
+        <form action="{{ url_for('login') }}" method="POST">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" class="form-control" placeholder="e.g. student1 or admin" required autofocus>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+        </form>
+
+        <div style="margin-top: 1.5rem; text-align: center; font-size: 0.9rem; color: var(--text-muted);">
+            Don't have an account? <a href="{{ url_for('register') }}" style="color: var(--primary); font-weight: 600; text-decoration: none;">Register here</a>
+        </div>
+
+        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.825rem; color: #64748b; text-align: center;">
+            💡 <strong>Quick Test Demo Accounts:</strong><br>
+            • Admin: <code>admin</code> / <code>admin123</code><br>
+            • Or register a new Student account above.
+        </div>
+    </div>
+</div>
+{% endblock %}
